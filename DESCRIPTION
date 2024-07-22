@@ -1,5 +1,5 @@
 Package: portfunctions
-Title: Changes the datatype 
+Title: Portfolio functions
 Version: 0.0.0.9000
 Authors@R: 
     person("Anna", "van Donkersgoed", , "anna.vandonkersgoed@student.hu.nl", role = c("aut", "cre"),
@@ -16,3 +16,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Imports: 
+    magrittr

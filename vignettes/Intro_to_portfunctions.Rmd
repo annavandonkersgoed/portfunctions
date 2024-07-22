@@ -14,8 +14,50 @@ knitr::opts_chunk$set(
 )
 ```
 
-This is an introduction to the package 
+Introductie over de package portfunctions 
 
 ```{r setup}
 library(portfunctions)
+```
+
+In deze package zijn 4 verschillende functies te vinden van code wat in de bestanden van mijn portfolio te vinden is. Ook is er een dataset toegevoegd aan de package. 
+
+*Dataset*
+Om de dataset te downloaden: 
+```{r, eval = FALSE}
+data("LandBird_Monitoring", package = "portfunctions")
+```
+
+*Functie datatype:*
+Deze functie die veranderd eht datatype van een kolom uit een dataset naar het gewenste datatype 
+
+Voorbeeld: 
+```{r, eval = FALSE} 
+# Example of using the datatype function
+datatype(LandBird_Monitoring, "Year", "integer")
+```
+
+*Functie RemoveNA*
+Deze functie verwijderd de rijen met Na voor een specifieke kolom. 
+
+Voorbeeld: 
+```{r, eval = FALSE}
+RemoveNA(LandBird_Monitoring, "Site_Name")
+```
+
+*Functie NotZero*
+Deze functie zorgt ervoor dat er bij het maken van de grafiek waardes niet door de 0 gaan op de x-as door 0.015 bij de waardes op te tellen. 
+
+Voorbeeld: 
+```{r, eval = FALSE}
+LandBird_Monitoring$Year <- as.numeric(LandBird_Monitoring$Year)
+NotZero(LandBird_Monitoring, "Year")
+```
+
+*Functie Normalization* 
+Deze functie normaliseerd data gebasseerd op een specifieke waarden van een kolom
+
+Voorbeeld: 
+```{r, eval = FALSE}
+Normalization(LandBird_Monitoring, "Condition", "Calm", "Humidity")
 ```
