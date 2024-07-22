@@ -2,7 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -15,11 +14,7 @@ knitr::opts_chunk$set(
 
 # portfunctions
 
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of regexcite is to make regular expressions more exciting!
-It provides convenience functions to make some common tasks with string manipulation and regular expressions a bit easier.
+There are 4 funtions in the package portfunctions based on the code in my portfolio. 
 
 ## Installation
       
@@ -31,34 +26,113 @@ install(build_vignettes = TRUE)
 
 ## Usage
 
-A fairly common task when dealing with strings is the need to split a single string into many parts.
-This is what `base::strplit()` and `stringr::str_split()` do.
-
+Datatype: A function to change the datatype of a column to the datatype you want. 
+function: 
 ```{r}
-(x <- "alfa,bravo,charlie,delta")
-strsplit(x, split = ",")
-stringr::str_split(x, pattern = ",")
+datatype <- function(dataset, colname, type) {
+  # Controleren of de kolomnaam bestaat
+  if (!colname %in% colnames(dataset)) {
+    stop("Column not found in dataset")
+  }
+
+  # Convert the column to the specified datatype using if-else
+  if (type == "integer") {
+    dataset[[colname]] <- as.integer(dataset[[colname]])
+  } else if (type == "numeric") {
+    dataset[[colname]] <- as.numeric(dataset[[colname]])
+  } else if (type == "character") {
+    dataset[[colname]] <- as.character(dataset[[colname]])
+  } else if (type == "factor") {
+    dataset[[colname]] <- as.factor(dataset[[colname]])
+  } else if (type == "logical") {
+    dataset[[colname]] <- as.logical(dataset[[colname]])
+  } else {
+    stop("Unsupported datatype")
+  }
+
+  return(dataset)
+}
+
 ```
 
-Notice how the return value is a **list** of length one, where the first element holds the character vector of parts.
-Often the shape of this output is inconvenient, i.e. we want the un-listed version.
-
-That's exactly what `regexcite::str_split_one()` does.
-
+Example: 
 ```{r}
-library(regexcite)
-
-str_split_one(x, pattern = ",")
+datatype(LandBird_Monitoring, "Year", "integer")
 ```
 
-Use `str_split_one()` when the input is known to be a single string.
-For safety, it will error if its input has length greater than one.
-
-`str_split_one()` is built on `stringr::str_split()`, so you can use its `n` argument and stringr's general interface for describing the `pattern` to be matched.
-
+RemoveNa: Removes the NA values from a column.
+function: 
 ```{r}
-str_split_one(x, pattern = ",", n = 2)
+RemoveNA <- function(dataset, colname){
+  # Check if the column name exists
+  if (!colname %in% colnames(dataset)) {
+    stop("Column not found in dataset")
+  }
 
-y <- "192.168.0.1"
-str_split_one(y, pattern = stringr::fixed("."))
+  # Remove rows with NA or empty values in the specified column
+  dataset <- dataset[!is.na(dataset[[colname]]) & dataset[[colname]] != "", ]
+
+  return(dataset)
+}
+
+```
+
+Example: 
+```{r}
+RemoveNA(LandBird_Monitoring, "Site_Name")
+```
+
+NotZero:
+function: Makees sure that in a plot the values won't go trough zero. 
+```{r}
+NotZero <- function(dataset, colname){
+  # Check if the column exists in the dataset
+  if (!colname %in% colnames(dataset)) {
+    stop("Column not found in dataset")
+  }
+
+  # Check if the column is numeric
+  if (!is.numeric(dataset[[colname]])) {
+    stop("Column is not numeric")
+  }
+
+  # Modify the specified column
+  dataset[[colname]] <- dataset[[colname]] + 0.001
+
+  return(dataset)
+}
+
+```
+
+Example: 
+```{r}
+LandBird_Monitoring$Year <- as.numeric(LandBird_Monitoring$Year)
+NotZero(LandBird_Monitoring, "Year")
+```
+
+Normalization
+function: Normalized data for a specific value 
+```{r}
+Normalization <- function(dataset, colname, value, data_col) {
+  if (!(colname %in% names(dataset))) {
+    stop(paste("Column", colname, "does not exist in the dataset."))
+  }
+  if (!(data_col %in% names(dataset))) {
+    stop(paste("Column", data_col, "does not exist in the dataset."))
+  }
+
+
+  filtered_data <- dataset[dataset[[colname]] == value, ]
+
+  mean_value <- mean(filtered_data[[data_col]], na.rm = TRUE)
+
+  dataset[[data_col]] <- dataset[[data_col]] / mean_value
+
+  return(dataset)
+}
+```
+
+Example: 
+```{r}
+Normalization(LandBird_Monitoring, "Condition", "Calm", "Humidity")
 ```
