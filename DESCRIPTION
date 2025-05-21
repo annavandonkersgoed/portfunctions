@@ -17,4 +17,5 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports: 
-    magrittr
+    magrittr,
+    stats
