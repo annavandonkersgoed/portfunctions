@@ -8,10 +8,14 @@
 #'
 #' @examples
 #' RemoveNA(LandBird_Monitoring, "Site_Name")
-RemoveNA <- function(dataset){
+RemoveNA <- function(dataset, colname){
   # Check if the column name exists
 
   # Remove rows with NA or empty values in the specified column
+  if (!colname %in% colnames(dataset)) {
+    stop("Column not found in dataset")
+  }
+
   dataset <- na.omit(dataset)
 
   return(dataset)
