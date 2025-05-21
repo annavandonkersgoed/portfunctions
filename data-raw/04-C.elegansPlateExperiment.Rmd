@@ -22,7 +22,7 @@ De data die relevant is voor de uitwerking zijn:
 De eerste stap van de analyse is om het verkregen Excel door R te laten inlezen.
 
 ```{r, inlezen excel}
-Celegans_dataset <- read_excel(here::here("data-raw", "Data010", "CE.LIQ.FLOW.062_Tidydata.xlsx"), sheet = 1)
+Celegans_dataset <- read_excel(here::here("portfolio-annavandonkersgoed.github.io", "data-raw", "Data010", "CE.LIQ.FLOW.062_Tidydata.xlsx"), sheet = 1)
 ```
 
 Na het inlezen van de data wordt de data gecontroleerd op het type.
