@@ -5,7 +5,7 @@
 \alias{LandBird_Monitoring}
 \title{LandBird_Monitoring dataset}
 \format{
-An object of class \code{NULL} of length 0.
+Een data.frame met X rijen en Y kolommen
 }
 \source{
 \url{https://catalog.data.gov/dataset/ncrn-bird-monitoring-data-2007-2017}
@@ -14,9 +14,10 @@ An object of class \code{NULL} of length 0.
 data("LandBird_Monitoring")
 }
 \description{
-This dataset contains cleaned and processed data on bird monitoring from 2007 to 2017.
+LandBird_Monitoring dataset
 }
 \examples{
 data("LandBird_Monitoring")
+head(LandBird_Monitoring)
 }
 \keyword{datasets}

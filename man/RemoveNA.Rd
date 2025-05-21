@@ -4,7 +4,7 @@
 \alias{RemoveNA}
 \title{RemoveNA}
 \usage{
-RemoveNA(dataset, colname)
+RemoveNA(dataset)
 }
 \arguments{
 \item{dataset}{The dataset you want to use}

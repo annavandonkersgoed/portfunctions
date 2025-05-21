@@ -1,4 +1,4 @@
-#' Clean and Tidy Land Bird Monitoring Data
+hu#' Clean and Tidy Land Bird Monitoring Data
 #'
 #' @description This script reads in the raw Excel file containing land bird monitoring data,
 #' cleans and tidies it into a structured format suitable for analysis.
