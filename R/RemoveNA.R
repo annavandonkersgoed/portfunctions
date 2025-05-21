@@ -16,7 +16,7 @@ RemoveNA <- function(dataset, colname){
     stop("Column not found in dataset")
   }
 
-  dataset <- na.omit(dataset)
+  dataset <- dataset[complete.cases(dataset[[colname]]), ]
 
   return(dataset)
 }
