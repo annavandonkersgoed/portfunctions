@@ -1,9 +1,9 @@
 #' RemoveNA
-#'
 #' @param dataset The dataset you want to use
 #' @param colname The column of the dataset where you want the NA values to be gone
 #'
 #' @return dataset
+#' @importFrom stats complete.cases
 #' @export
 #'
 #' @examples

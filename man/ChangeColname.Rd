@@ -21,5 +21,5 @@ ChangeColname
 }
 \examples{
 
-Normalization(LandBird_Monitoring, "Condition", "Calm", "Humidity")
+ChangeColname(LandBird_Monitoring, "Condition", "new_condition")
 }

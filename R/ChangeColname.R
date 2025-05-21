@@ -9,7 +9,7 @@
 #'
 #' @examples
 #'
-#' Normalization(LandBird_Monitoring, "Condition", "Calm", "Humidity")
+#' ChangeColname(LandBird_Monitoring, "Condition", "new_condition")
 ChangeColname <- function(dataset, old_name, new_name) {
   if (!(old_name %in% names(dataset))) {
     stop(paste("Column", old_name, "does not exist in the dataset."))
