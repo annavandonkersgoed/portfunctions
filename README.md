@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # portfunctions
 
-There are 4 funtions in the package portfunctions based on the code in my portfolio. 
+There are 4 simple funtions in the package portfunctions that will help with data analyses. There is also a build in dataset to practise the functions on. The functions are explained below. 
 
 ## Installation
       
@@ -28,6 +28,7 @@ install(build_vignettes = TRUE)
 
 Datatype: A function to change the datatype of a column to the datatype you want. 
 function: 
+
 ```{r}
 datatype <- function(dataset, colname, type) {
   # Controleren of de kolomnaam bestaat
@@ -52,7 +53,6 @@ datatype <- function(dataset, colname, type) {
 
   return(dataset)
 }
-
 ```
 
 Example: 
@@ -65,12 +65,13 @@ function:
 ```{r}
 RemoveNA <- function(dataset, colname){
   # Check if the column name exists
+
+  # Remove rows with NA or empty values in the specified column
   if (!colname %in% colnames(dataset)) {
     stop("Column not found in dataset")
   }
 
-  # Remove rows with NA or empty values in the specified column
-  dataset <- dataset[!is.na(dataset[[colname]]) & dataset[[colname]] != "", ]
+  dataset <- dataset[complete.cases(dataset[[colname]]), ]
 
   return(dataset)
 }
@@ -83,7 +84,7 @@ RemoveNA(LandBird_Monitoring, "Site_Name")
 ```
 
 NotZero:
-function: Makees sure that in a plot the values won't go trough zero. 
+function: Makes sure that in a plot the values won't go trough zero. In this way the data values can be seen on the plot. 
 ```{r}
 NotZero <- function(dataset, colname){
   # Check if the column exists in the dataset
@@ -110,29 +111,22 @@ LandBird_Monitoring$Year <- as.numeric(LandBird_Monitoring$Year)
 NotZero(LandBird_Monitoring, "Year")
 ```
 
-Normalization
-function: Normalized data for a specific value 
+ChangeColname
+function: Change a name of the column in a dataset 
 ```{r}
-Normalization <- function(dataset, colname, value, data_col) {
-  if (!(colname %in% names(dataset))) {
-    stop(paste("Column", colname, "does not exist in the dataset."))
-  }
-  if (!(data_col %in% names(dataset))) {
-    stop(paste("Column", data_col, "does not exist in the dataset."))
+ChangeColname <- function(dataset, old_name, new_name) {
+  if (!(old_name %in% names(dataset))) {
+    stop(paste("Column", old_name, "does not exist in the dataset."))
+
   }
 
+  names(dataset)[names(dataset) == old_name] <- new_name
 
-  filtered_data <- dataset[dataset[[colname]] == value, ]
-
-  mean_value <- mean(filtered_data[[data_col]], na.rm = TRUE)
-
-  dataset[[data_col]] <- dataset[[data_col]] / mean_value
-
-  return(dataset)
+  return(dataset )
 }
 ```
 
 Example: 
 ```{r}
-Normalization(LandBird_Monitoring, "Condition", "Calm", "Humidity")
+Normalization(LandBird_Monitoring, "Year", "jaar")
 ```
