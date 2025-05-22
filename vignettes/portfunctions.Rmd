@@ -1,0 +1,77 @@
+---
+title: "portfunctions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{portfunctions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(portfunctions)
+```
+
+Welkom bij de portfunctions package! Deze package bevat 4 simpele functie die gebruikt kunnen worden bij het analyseren van een dataset. Ook is er een ingebouwde dataset toegevoegd aan de package. Hierop kunnen de functies geoefend worden.
+
+**Dataset**
+
+Om de dataset te downloaden:
+
+```{r, eval = FALSE}
+data("LandBird_Monitoring", package = "portfunctions")
+```
+
+**Datatype**
+
+De eerste functie verandert het datatype van een kolom. De functie gebruikt 3 argumenten:
+
+-   Naam van de dataset 
+-   Naam van de kolom waarvan het datatype wordt aangepast tussen aanhalingstekens 
+-   Naam van nieuwe datatype tussen aanhalingstekens 
+
+Voorbeeld: 
+```{r, eval = FALSE} 
+datatype(LandBird_Monitoring, "Year", "integer")
+```
+
+**RemoveNA**
+
+Deze functie verwijdert NA values vanuit de kolom die aangegeven wordt. De functie gebruikt twee argumenten: 
+
+-  Naam van dataset 
+-  Naam van de kolom waaruit de NA values worden gehaald tussen aanhalingstekens
+
+Voorbeeld: 
+```{r, eval = FALSE}
+RemoveNA(LandBird_Monitoring, "Site_Name")
+```
+
+**NotZero** 
+Deze functie zorgt ervoor dat er bij het maken van de grafiek waardes niet door de 0 gaan op de x-as door 0.001 bij de waardes op te tellen. Dit zorgt ervoor dat de waarden die normaal 0 zijn iets naar rechts verschuiven en te zien zijn in de grafiek. De functie gebruikt twee argumenten: 
+
+-  Naam van dataset 
+-  Naam van de kolom waarbij er een waarde opgeteld wordt tussen aanhalingstekens
+
+Voorbeeld: 
+```{r, eval = FALSE}
+NotZero(LandBird_Monitoring, "Year")
+```
+
+**ChangeColname** 
+Deze functie verandert de kolomnaam. De functie gebruikt 3 argumenten 
+
+-  Naam van de dataset 
+-  Naam van de kolom die verandert wordt tussen aanhalingstekens  
+-  Nieuwe naam van de kolom tussen aanhalingstekens 
+
+Voorbeeld: 
+```{r, eval = FALSE}
+ChangeColname(LandBird_Monitoring, "Year", "jaar")
+```
